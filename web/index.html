@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An interactive enterprise voice AI deployment workbench by Maneshwar Kumar.">
+  <title>Voice AI Deployment Lab</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Voice AI Deployment Lab home">
+      <span class="brand-mark">VA</span>
+      <span>Deployment Lab</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#workbench">Workbench</a>
+      <a href="#architecture">Architecture</a>
+      <a href="https://github.com/Maneshwar-Kumar/voice-ai-deployment-lab">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Customer workflow → controlled production</p>
+        <h1>Deploy the outcome,<br>not just the voice.</h1>
+        <p class="hero-lede">A transparent workbench for shaping, testing, releasing, and operating an enterprise voice-AI workflow. Built around an automotive service-booking scenario.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#workbench">Open the workbench</a>
+          <a class="button secondary" href="https://github.com/Maneshwar-Kumar/voice-ai-deployment-lab/blob/main/docs/DEPLOYMENT_PLAYBOOK.md">Read the playbook</a>
+        </div>
+        <p class="disclosure"><span aria-hidden="true">●</span> Synthetic scenario · deterministic calls · no customer data</p>
+      </div>
+      <div class="hero-brief" aria-label="Deployment brief">
+        <div class="brief-label">Deployment brief 01</div>
+        <h2>Service appointment agent</h2>
+        <dl>
+          <div><dt>Customer</dt><dd>Multi-site auto retailer</dd></div>
+          <div><dt>Workflow</dt><dd>Inbound qualification + booking</dd></div>
+          <div><dt>Systems</dt><dd>Telephony · CRM · Calendar</dd></div>
+          <div><dt>First release</dt><dd>Shadow mode</dd></div>
+        </dl>
+        <div class="brief-question">Can we improve access and conversion without making an unverified promise?</div>
+      </div>
+    </section>
+
+    <section class="principles" aria-label="Deployment principles">
+      <article><span>01</span><h3>Start with the workflow</h3><p>Baseline the problem, users, systems, failure costs, and decision rights.</p></article>
+      <article><span>02</span><h3>Prove quality before scale</h3><p>Release against explicit business, safety, systems, and experience gates.</p></article>
+      <article><span>03</span><h3>Design the fallback</h3><p>Human handoff and degraded mode are core product paths—not afterthoughts.</p></article>
+    </section>
+
+    <section class="workbench-shell" id="workbench">
+      <div class="section-heading">
+        <div><p class="eyebrow">Interactive deployment workbench</p><h2>From investment case to live operations</h2></div>
+        <span class="simulation-badge">Simulation</span>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Workbench views">
+        <button class="tab is-active" type="button" role="tab" aria-selected="true" aria-controls="case-panel" data-tab="case-panel">Business case</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="runtime-panel" data-tab="runtime-panel">Runtime</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="gates-panel" data-tab="gates-panel">Release gates</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="rollout-panel" data-tab="rollout-panel">Rollout</button>
+      </div>
+
+      <div class="tab-panel is-active" id="case-panel" role="tabpanel">
+        <div class="case-grid">
+          <form class="control-panel" id="case-form">
+            <div class="panel-kicker">Editable assumptions</div>
+            <label>Monthly calls <output id="calls-value">12,000</output><input id="calls" type="range" min="1000" max="100000" step="1000" value="12000"></label>
+            <label>Average handle time <output id="aht-value">4.5 min</output><input id="aht" type="range" min="1" max="15" step="0.5" value="4.5"></label>
+            <label>Human cost per hour <output id="labour-value">$9</output><input id="labour" type="range" min="3" max="50" step="1" value="9"></label>
+            <label>Expected containment <output id="containment-value">58%</output><input id="containment" type="range" min="10" max="90" step="1" value="58"></label>
+            <label>Voice platform cost <output id="platform-value">$0.08/min</output><input id="platform" type="range" min="0.02" max="0.30" step="0.01" value="0.08"></label>
+            <label>Implementation cost <output id="implementation-value">$18,000</output><input id="implementation" type="range" min="5000" max="150000" step="1000" value="18000"></label>
+          </form>
+          <div class="case-output" aria-live="polite">
+            <div class="recommendation"><span>Recommended next step</span><strong id="recommendation">Shadow mode</strong><p id="recommendation-note">Validate real call patterns without customer exposure.</p></div>
+            <div class="metrics">
+              <article><span>Current monthly cost</span><strong id="current-cost">$8,100</strong></article>
+              <article><span>Projected monthly cost</span><strong id="projected-cost">$7,722</strong></article>
+              <article><span>Annual benefit</span><strong id="annual-benefit">$4,536</strong></article>
+              <article><span>Payback</span><strong id="payback">47.6 mo</strong></article>
+            </div>
+            <div class="assumption-note"><strong>Decision note</strong><p>The model is deliberately conservative: it excludes conversion uplift, after-hours coverage, and quality benefits. All outputs are directional.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="runtime-panel" role="tabpanel" hidden>
+        <div class="runtime-toolbar">
+          <label for="scenario">Runtime scenario</label>
+          <select id="scenario">
+            <option value="success">Appointment booked</option>
+            <option value="crm-down">CRM unavailable</option>
+            <option value="human">Caller asks for a person</option>
+            <option value="no-consent">Consent not provided</option>
+          </select>
+          <button class="button primary" id="run-call" type="button">Run call sequence</button>
+        </div>
+
+        <div class="runtime-summary" aria-live="polite">
+          <div><span>Outcome</span><strong id="runtime-outcome">Ready to simulate</strong></div>
+          <div><span>Path</span><strong id="runtime-path">—</strong></div>
+          <div><span>Illustrative latency</span><strong id="runtime-latency">—</strong></div>
+        </div>
+
+        <div class="timeline-wrap">
+          <div class="timeline-scale" aria-hidden="true"><span>0 ms</span><span>500</span><span>1,000</span><span>1,500</span><span>2,000 ms</span></div>
+          <div id="runtime-timeline" class="runtime-timeline" aria-label="Call runtime sequence"></div>
+        </div>
+
+        <div class="runtime-detail">
+          <article><div class="panel-kicker">What the caller hears</div><div id="transcript" class="transcript">Choose a scenario and run the sequence.</div></article>
+          <article><div class="panel-kicker">Operational interpretation</div><div id="runtime-explanation" class="interpretation">Each step emits structured timing and outcome events. Failures switch to an approved fallback rather than improvising.</div></article>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="gates-panel" role="tabpanel" hidden>
+        <div class="gate-intro"><p>Promotion requires evidence across the whole system. One impressive conversation is not a release criterion.</p><span>Target</span></div>
+        <div class="gate-list">
+          <article><div><strong>Task success</strong><span>Approved evaluation set</span></div><div class="gate-track"><i style="--score:87%"></i></div><b>87% / ≥85%</b></article>
+          <article><div><strong>Unsafe response</strong><span>Critical-event review</span></div><div class="gate-track"><i style="--score:99.7%"></i></div><b>0.3% / &lt;0.5%</b></article>
+          <article><div><strong>Human transfer</strong><span>Connection success</span></div><div class="gate-track"><i style="--score:98.5%"></i></div><b>98.5% / ≥98%</b></article>
+          <article><div><strong>Response latency</strong><span>p95 after caller turn</span></div><div class="gate-track warning"><i style="--score:76%"></i></div><b>1,620 / &lt;1,500 ms</b></article>
+          <article><div><strong>Appointment integrity</strong><span>Valid system writes</span></div><div class="gate-track"><i style="--score:99.8%"></i></div><b>99.8% / ≥99.5%</b></article>
+        </div>
+        <div class="gate-decision"><span>Release decision</span><strong>Hold at shadow mode</strong><p>Latency misses the agreed gate. Diagnose tool and speech-generation time before customer exposure.</p></div>
+      </div>
+
+      <div class="tab-panel" id="rollout-panel" role="tabpanel" hidden>
+        <div class="rollout">
+          <article class="complete"><span>01</span><div><h3>Discovery</h3><p>Baseline, owners, value, workflow, data, consent.</p><b>Exit: sponsor + approved metrics</b></div></article>
+          <article class="current"><span>02</span><div><h3>Shadow</h3><p>Compare proposed actions with real human outcomes.</p><b>Exit: evaluation gates met</b></div></article>
+          <article><span>03</span><div><h3>Assisted</h3><p>Advisers inspect suggestions and corrections.</p><b>Exit: adoption + correction rate</b></div></article>
+          <article><span>04</span><div><h3>Limited production</h3><p>5-10% traffic with daily cross-functional review.</p><b>Exit: no critical events</b></div></article>
+          <article><span>05</span><div><h3>Scale</h3><p>Expand cohorts only after sustained quality.</p><b>Exit: governance approval</b></div></article>
+        </div>
+        <div class="rollback"><strong>Rollback is a designed action.</strong><span>One owner · one traffic switch · one last-known-good release · one communication tree</span></div>
+      </div>
+    </section>
+
+    <section class="architecture" id="architecture">
+      <div class="section-heading"><div><p class="eyebrow">Reference architecture</p><h2>Every boundary has an owner and a fallback</h2></div></div>
+      <div class="architecture-flow" aria-label="Voice AI system flow">
+        <article><span>Experience</span><strong>Caller + adviser</strong><small>Consent · correction · handoff</small></article>
+        <i aria-hidden="true">→</i>
+        <article><span>Voice</span><strong>Speech platform</strong><small>Audio · turns · streaming</small></article>
+        <i aria-hidden="true">→</i>
+        <article><span>Decision</span><strong>Orchestrator</strong><small>State · policy · tool choice</small></article>
+        <i aria-hidden="true">→</i>
+        <article><span>Action</span><strong>CRM + calendar</strong><small>Read · confirm · write</small></article>
+      </div>
+      <div class="ops-loop">
+        <div><span>01</span><strong>Observe</strong><p>Latency, errors, outcomes, cohorts</p></div>
+        <div><span>02</span><strong>Review</strong><p>Risk-weighted calls and field feedback</p></div>
+        <div><span>03</span><strong>Evaluate</strong><p>Convert defects into regression cases</p></div>
+        <div><span>04</span><strong>Release</strong><p>Promote only through agreed gates</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><span>Designed by Maneshwar Kumar</span><span>Provider-neutral · synthetic data · transparent assumptions</span><a href="https://www.linkedin.com/in/maneshwarkumar/">LinkedIn</a></footer>
+  <script src="app.js"></script>
+</body>
+</html>
+
