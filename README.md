@@ -9,6 +9,8 @@ This is a deployment-strategy demonstration, not a claim that a live contact cen
 
 **Live demo:** https://maneshwar-kumar.github.io/voice-ai-deployment-lab/
 
+![Voice AI Deployment Lab workbench](docs/assets/workbench-preview.png)
+
 ## The scenario
 
 An automotive retail group wants an AI voice agent to qualify inbound service leads and book workshop appointments. The technology must work with the existing CRM and calendar, support multilingual callers, hand off safely to humans, and produce measurable commercial value without compromising customer trust.
@@ -35,6 +37,8 @@ The lab helps a deployment team answer five questions:
 - Linting, coverage, dependency review, container build, and secret scanning in CI
 - GitHub Pages continuous deployment for the public workbench
 - A production deployment blueprint using container images and workload identity
+
+![Runtime sequence showing component timing](docs/assets/runtime-sequence.png)
 
 ## Architecture
 
